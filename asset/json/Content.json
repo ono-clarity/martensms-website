@@ -1,0 +1,19 @@
+{
+
+	"states": {
+		"default": 0,
+		"active":  1
+	},
+
+	"map": {
+		"default": {
+			"width":  null,
+			"height": null
+		},
+		"active": {
+			"width":  null,
+			"height": null
+		}
+	}
+
+}

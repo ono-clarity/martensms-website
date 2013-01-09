@@ -1,0 +1,19 @@
+{
+	"tags": {},
+
+	"tree": {
+
+		"state": {
+			"Scene": [ "js" ]
+		},
+
+		"entity": {
+			"Menu": [ "js", "css" ],
+			"Content": [ "js", "css" ]
+		},
+
+		"DeviceSpecificHacks": [ "js" ],
+		"Main": [ "js", "css" ]
+
+	}
+}

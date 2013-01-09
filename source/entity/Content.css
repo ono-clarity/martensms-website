@@ -1,0 +1,54 @@
+
+.website-entity-Content {
+	display: block;
+	position: absolute;
+	left: 200px;
+	padding: 0px;
+	border-radius: 30px;
+	border: 5px solid #00b7b5;
+	color: #fff;
+	background: #444;
+	opacity: 0;
+	overflow: hidden;
+}
+
+
+
+.website-entity-Content.default {
+	overflow: hidden;
+	opacity: 0;
+	transition: all 500ms ease-out;
+	-moz-transition: all 500ms ease-out;
+	-webkit-transition: all 500ms ease-out;
+}
+
+.website-entity-Content.active {
+	overflow: auto;
+	opacity: 1;
+	transition: all 500ms ease-out;
+	-moz-transition: all 500ms ease-out;
+	-webkit-transition: all 500ms ease-out;
+}
+
+
+
+
+.website-entity-Content > * {
+	margin-left: 8px;
+	margin-right: 8px;
+}
+.website-entity-Content *:first-child {
+	margin-top: 20px;
+}
+
+
+
+.website-entity-Content a {
+	color: #00b7b5;
+}
+
+.website-entity-Content abbr {
+	border-bottom: 1px dotted #fff;
+}
+
+
