@@ -3,19 +3,7 @@ lychee.define('website.entity.Menu').tags({
 	platform: 'css'
 }).includes([
 	'lychee.game.Entity'
-]).supports(function(lychee, global) {
-
-	if (
-		typeof global.document !== 'undefined'
-		&& typeof global.document.createElement === 'function'
-	) {
-		return true;
-	}
-
-
-	return false;
-
-}).exports(function(lychee, global) {
+]).exports(function(lychee, global) {
 
 	var Class = function(data, scene) {
 

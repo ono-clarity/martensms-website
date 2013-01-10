@@ -1,0 +1,29 @@
+
+ul#website-ui-Notification {
+	display: block;
+	position: absolute;
+	text-align: center;
+	top: auto;
+	right: 0px;
+	bottom: 20px;
+	left: 0px;
+	z-index: 20;
+}
+
+ul#website-ui-Notification > li {
+	display: block;
+	width: auto;
+	max-width: 50%;
+	margin: 0 auto;
+	padding: 0.2em 0.5em;
+	color: #fff;
+	background: #822;
+	border: 1px solid #f66;
+	border-radius: 5px;
+	text-align: center;
+	animation: _notificationidle 3s infinite linear;
+	-moz-animation: _notificationidle 3s infinite linear;
+	-webkit-animation: _notificationidle 3s infinite linear;
+	cursor: pointer;
+}
+

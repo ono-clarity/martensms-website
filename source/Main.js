@@ -2,6 +2,7 @@
 lychee.define('website.Main').requires([
 	'lychee.Input',
 	'lychee.Viewport',
+	'website.ui.Notification',
 	'website.state.Scene',
 	'website.DeviceSpecificHacks'
 ]).includes([
@@ -36,6 +37,7 @@ lychee.define('website.Main').requires([
 
 			var urls = [
 				base + '/json/Content.json',
+				base + '/json/Gallery.json',
 				base + '/json/Menu.json'
 			];
 
@@ -50,7 +52,8 @@ lychee.define('website.Main').requires([
 
 				this.config = {
 					Content: assets[urls[0]],
-					Menu:    assets[urls[1]]
+					Gallery: assets[urls[1]],
+					Menu:    assets[urls[2]]
 				};
 
 				this.init();
@@ -121,6 +124,8 @@ lychee.define('website.Main').requires([
 
 
 			this.setState('scene');
+
+			new website.ui.Notification('This site is currently under development. Its content increases the next couple days.');
 
 			this.start();
 

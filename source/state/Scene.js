@@ -3,6 +3,7 @@ lychee.define('website.state.Scene').tags({
 	platform: [ 'css', 'html' ]
 }).requires([
 	'website.entity.Content',
+	'website.entity.Gallery',
 	'website.entity.Menu'
 ]).includes([
 	'lychee.game.State'
@@ -53,15 +54,6 @@ lychee.define('website.state.Scene').tags({
 
 		}
 
-		var notifications = global.document.querySelectorAll('#notifications div');
-		for (var n = 0, l = notifications.length; n < l; n++) {
-
-			notifications[n].addEventListener('click', function() {
-				this.parentNode.removeChild(this);
-			}, true);
-
-		}
-
 	})();
 
 
@@ -92,25 +84,11 @@ lychee.define('website.state.Scene').tags({
 
 			var hwidth  = this.game.settings.width / 2;
 			var hheight = this.game.settings.height / 2;
+			var config  = this.game.config;
 
 
-			// 1. Patching the Config (for Content Entitites)
-			var config   = this.game.config;
-			config.Content.map['default'].x	     = 82;
-			config.Content.map['default'].y      = -13;
-			config.Content.map['default'].width  = 10;
-			config.Content.map['default'].height = 10;
-
-			// I can't explain this in words, but never touch it.
-			// It took me about 20min to draw it on a sheet of paper :D
-			config.Content.map['active'].x       = 200;
-			config.Content.map['active'].y       = 60 + (-1 * (hheight - hheight / 6)) | 0;
-			config.Content.map['active'].width   = 60 / 2 + hwidth - config.Content.map['active'].x;
-			config.Content.map['active'].height  = (hheight * 2 - hheight / 3) | 0;
-
-
-			// 2. Parse the Entities of the Website
-			var elements = global.document.querySelectorAll('div.website-entity-Menu, article.website-entity-Content');
+			// 2. Parse Entities on Website
+			var elements = global.document.querySelectorAll('div.website-entity-Menu, article.website-entity-Content, div.website-entity-Gallery');
 			for (var e = 0, l = elements.length; e < l; e++) {
 
 				var element = elements[e];

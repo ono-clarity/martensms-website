@@ -14,7 +14,6 @@ lychee.define('website.entity.Content').tags({
 
 		this.__element = settings.element || null;
 		this.__parent  = null;
-		this.__map     = settings.map || null;
 
 
 		this.__deserialize(scene);
@@ -39,7 +38,7 @@ lychee.define('website.entity.Content').tags({
 				&& this.__element.dispatched !== true
 			) {
 
-				var id = this.__element.parentNode.id;
+				var id = this.__element.getAttribute('data-id');
 				if (scene[id] !== undefined) {
 					this.setParent(scene[id]);
 					scene[id].setContent(this);
@@ -74,14 +73,6 @@ lychee.define('website.entity.Content').tags({
 
 		},
 
-		getCurrentMap: function() {
-			return this.__map[this.getState()] || null;
-		},
-
-		getMap: function() {
-			return this.__map;
-		},
-
 		getId: function() {
 			return null;
 		},
@@ -91,25 +82,7 @@ lychee.define('website.entity.Content').tags({
 		},
 
 		setPosition: function(position) {
-
-			if (Object.prototype.toString.call(position) !== '[object Object]') {
-				return false;
-			}
-
-
-			this.__position.x = typeof position.x === 'number' ? position.x : this.__position.x;
-			this.__position.y = typeof position.y === 'number' ? position.y : this.__position.y;
-			this.__position.z = typeof position.z === 'number' ? position.z : this.__position.z;
-
-
-			if (this.__element !== null) {
-				this.__element.style.setProperty('top',  (this.__position.y - this.height / 2) + 'px');
-				this.__element.style.setProperty('left', (this.__position.x - this.width / 2)  + 'px');
-			}
-
-
-			return true;
-
+			return false;
 		},
 
 		setState: function(id) {
@@ -119,24 +92,6 @@ lychee.define('website.entity.Content').tags({
 			if (id !== null && this.__states[id] !== undefined) {
 
 				this.__state = id;
-
-				var map = this.getCurrentMap();
-				if (map !== null) {
-
-					this.width  = map.width;
-					this.height = map.height;
-
-					if (this.__element !== null) {
-						this.__element.style.setProperty('width',  this.width  + 'px');
-						this.__element.style.setProperty('height', this.height + 'px');
-					}
-
-					this.setPosition({
-						x: map.x + this.width / 2,
-						y: map.y + this.height / 2
-					});
-
-				}
 
 				if (this.__element !== null) {
 					this.__element.className = 'website-entity-Content ' + id;

@@ -2,32 +2,47 @@
 .website-entity-Content {
 	display: block;
 	position: absolute;
-	left: 200px;
+	right: 2%;
+	bottom: 5%;
+	left: auto;
+	width: 35%;
+	min-height: 45%;
+	max-height: 90%;
 	padding: 0px;
 	border-radius: 30px;
 	border: 5px solid #00b7b5;
 	color: #fff;
 	background: #444;
-	opacity: 0;
-	overflow: hidden;
+	overflow: auto;
+	z-index: 9;
 }
 
 
 
 .website-entity-Content.default {
-	overflow: hidden;
 	opacity: 0;
-	transition: all 500ms ease-out;
-	-moz-transition: all 500ms ease-out;
-	-webkit-transition: all 500ms ease-out;
+	bottom: 100%;
+	transition: all 250ms ease-in;
+	-moz-transition: all 250ms ease-in;
+	-webkit-transition: all 250ms ease-in;
+}
+
+/* Fix for some rendering issues in WebKit and Gecko */
+.website-entity-Content.default iframe {
+	display: none;
 }
 
 .website-entity-Content.active {
-	overflow: auto;
 	opacity: 1;
-	transition: all 500ms ease-out;
-	-moz-transition: all 500ms ease-out;
-	-webkit-transition: all 500ms ease-out;
+	bottom: 5%;
+	transition: all 250ms ease-out;
+	-moz-transition: all 250ms ease-out;
+	-webkit-transition: all 250ms ease-out;
+}
+
+/* Fix for some rendering issues in WebKit and Gecko */
+.website-entity-Content.active iframe {
+	display: block;
 }
 
 
@@ -54,7 +69,7 @@
 	margin-left: 8px;
 	margin-right: 8px;
 }
-.website-entity-Content *:first-child {
+.website-entity-Content > *:first-child {
 	margin-top: 20px;
 }
 
@@ -72,15 +87,6 @@
 	display: block;
 	width: 90%;
 	margin: 0 auto;
-}
-
-
-.website-entity-Content .gallery {
-	margin-top: 1em;
-	padding: 5px 5px;
-	background: #333;
-	border: 2px solid #fff;
-	border-radius: 5px;
 }
 
 .website-entity-Content .links {

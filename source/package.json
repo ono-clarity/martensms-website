@@ -8,8 +8,13 @@
 		},
 
 		"entity": {
-			"Menu": [ "js", "css" ],
-			"Content": [ "js", "css" ]
+			"Content": [ "js", "css" ],
+			"Gallery": [ "js", "css" ],
+			"Menu": [ "js", "css" ]
+		},
+
+		"ui": {
+			"Notification": [ "js", "css" ]
 		},
 
 		"DeviceSpecificHacks": [ "js" ],
