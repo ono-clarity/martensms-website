@@ -31,6 +31,23 @@
 }
 
 
+.website-entity-Content.default * {
+	opacity: 0;
+	transition: all 500ms ease-out;
+	-moz-transition: all 500ms ease-out;
+	-webkit-transition: all 500ms ease-out;
+}
+
+.website-entity-Content.active * {
+	opacity: 1;
+	transition: all 500ms ease-out;
+	-moz-transition: all 500ms ease-out;
+	-webkit-transition: all 500ms ease-out;
+	transition-delay: 750ms;
+	-moz-transition-delay: 750ms;
+	-webkit-transition-delay: 750ms;
+}
+
 
 
 .website-entity-Content > * {
@@ -51,4 +68,30 @@
 	border-bottom: 1px dotted #fff;
 }
 
+
+/*
+ * CUSTOM SCROLLBARS
+ */
+
+::-webkit-scrollbar {
+    width: 16px;
+}
+ 
+::-webkit-scrollbar-track {
+	background: transparent;
+    border-radius: 10px;
+	margin: 20px 0px 20px 0px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+	background: rgba(0,0,0,0.5);
+	-webkit-transition: all 500ms ease-out;
+    -webkit-box-shadow: inset 0px 0px 0px 4px #444; 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(0,0,0,0.5);
+	-webkit-transition: all 500ms ease-out;
+}
 

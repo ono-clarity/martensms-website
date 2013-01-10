@@ -168,7 +168,7 @@ lychee.define('website.state.Scene').tags({
 			for (var e = 0, l = this.__entities.length; e < l; e++) {
 
 				this.__entities[e].setPosition({
-					x: width + 200,
+					x: width + 400,
 					y: height / 2
 				});
 
@@ -280,7 +280,7 @@ lychee.define('website.state.Scene').tags({
 					for (var h = this.__history.length - 1; h > index; h--) {
 
 						this.__history[h].setPosition({
-							x: width + 200,
+							x: width + 400,
 							y: height / 2
 						});
 
