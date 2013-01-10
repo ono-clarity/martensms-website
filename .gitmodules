@@ -1,3 +1,6 @@
 [submodule "external/lycheeJS"]
 	path = external/lycheeJS
 	url = git@github.com:martensms/lycheeJS.git
+[submodule "lycheeJS"]
+	path = lycheeJS
+	url = git@github.com:martensms/lycheeJS-docs.git
