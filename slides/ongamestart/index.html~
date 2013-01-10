@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cross-Platform Games with JavaScript, Canvas, WebGL and native OpenGL</title>
+
+	<meta charset='utf-8'>
+	<script src="slides.js"></script>
+</head>
+
+<body style='display: none'>
+
+	<section class='slides layout-regular template-default'>
+
+		<article>
+			<h1>Cross-Platform Games with Canvas, WebGL and native OpenGL</h1>
+			<p>
+				Christoph Martens (<a href="http://twitter.com/martensms">@martensms</a>)<br>
+				onGameStart, 21. September 2012
+			</p>
+			<br><br>
+			<p>
+				About: <a href="http://martens.ms/lycheeJS">http://martens.ms/lycheeJS</a>
+			</p>
+		</article>
+
+		<article>
+
+			<h3>Introduction</h3>
+			<ul>
+				<li>yet another Open-Source guy</li>
+				<li>previously worked for Zynga</li>
+				<li>Zynga Jukebox</li>
+				<li>Zynga Speedrun</li>
+				<li>Linux Kernel Hacker</li>
+				<li>V8 Hacker</li>
+			</ul>
+
+		</article>
+
+		<article>
+			<h3>Long, long ago - December 2010</h3>
+			<ul>
+				<li>ingenioJS Prototype</li>
+				<li>DOM Renderer (slow canvas)</li>
+				<li>Compositor and Physics</li>
+				<li>Object centric RPG engine</li>
+				<li>CSS Animations, Transitions and Events via Feature Detection</li>
+			</ul>
+		</article>
+
+		<article>
+			<h3>ingenioJS: Gameplay Demo</h3>
+			<iframe src="./ingenioJS/game.html"></iframe>
+		</article>
+
+		<article>
+			<h3>ingenioJS: Editor Demo</h3>
+			<iframe src="./ingenioJS/editor.html"></iframe>
+		</article>
+
+		<article>
+			<h1>lycheeJS</h1>
+			<p>Environment-independent Cross-platform Game library</p>
+		</article>
+
+		<article>
+			<h3>Prototyping a simple Jewelz-clone game</h3>
+			<h3 style="margin: 7em auto; text-align:center;">
+				Click: <a href="http://martens.ms/lycheeJS/game/jewelz" target="_blank">Jewelz</a>
+			</h3>
+			<p>
+				Try it yourself at:
+				<a href="http://martens.ms/lycheeJS/#!try-it-yourself">http://martens.ms/lycheeJS/#!try-it-yourself</a>
+			</p>
+		</article>
+
+		<article>
+			<h3>So, what to create out of it?</h3>
+			<ul>
+				<li>Creation of JavaScript Games (not HTML5-only)</li>
+				<li>Identical codebas across all platforms</li>
+				<li>Abstraction layer that solves HTML5 hacks and bugs</li>
+				<li>High-Performance Rendering Stack</li>
+				<li>Low-Garbage Engine Stack</li>
+			</ul>
+		</article>
+
+		<article>
+			<h3>Result: lycheeJS</h3>
+			<ul>
+				<li>completely open source (MIT license)</li>
+				<li>Mobile First, Desktop inclusive</li>
+				<li>Requirement system is made for Feature Detection</li>
+				<li>Supports platform specific implementations</li>
+				<li>Supports tracking of platform specific requirements</li>
+				<li>Supports dirty hacks (but outside the engine stack)</li>
+				<li>(for now) Entity based rendering stack</li>
+				<li>Many delicacies like lychee.Jukebox or lychee.Font</li>
+			</ul>
+		</article>
+
+		<article>
+			<h3>lycheeJS: MOAR LAZERS!</h3>
+			<ul>
+				<li>Browsers are not enough, need more platforms!</li>
+				<li>Generic tag based builds (e.g. platform: WebGL, Canvas, DOM)</li>
+				<li>iOS: WebView</li>
+				<li>Performance on Android 4 and Chrome: Acceptable</li>
+				<li>Performance on Android 2.3: Crap</li>
+			</ul>
+		</article>
+
+		<article>
+			<h3>Minimum Requirements for new platforms</h3>
+			<ul>
+				<li>lychee core: definition, environment and dependency setup</li>
+				<li>lychee.Builder: dependency tracking and initialization</li>
+				<li>platform-specific lychee.Preloader</li>
+				<li>Full support requires platform-specific lychee.Renderer,
+				lychee.Jukebox and lychee.Input implementation</li>
+			</ul>
+		</article>
+
+		<article>
+			<h1>V8 meets OpenGL</h1>
+			<p>The birth of <a href="http://github.com/martensms/lycheeJS-adk">lycheeJS-ADK</a></p>
+		</article>
+
+		<article>
+			<h3>Why using V8?</h3>
+			<ul>
+				<li>is by far the fastest JIT compiler and -runtime</li>
+				<li>supports all major architectures (ARM, IA32, X64)</li>
+				<li>v8m project supports MIPS (Big- and Litte- Endian), too.</li>
+				<li>runs on all major desktop environments</li>
+				<li>Cross-compiling via Android NDK possible</li>
+			</ul>
+		</article>
+
+		<article>
+			<h3>Why OpenGL?</h3>
+			<ul>
+				<li>OpenGL bindings are available on all major desktop environments</li>
+				<li>Android 2.3+ has OpenGL ES 2.0 bindings for Android NDK</li>
+				<li>GLUT: freeglut supports Android NDK</li>
+				<li>GLU: GLUES port has to be done</li>
+			</ul>
+		</article>
+
+		<article class="smaller">
+			<h3>(Simplified) Architecture of the lycheeJS-ADK</h3>
+			<table>
+				<tr>
+					<th>Native Side</th>
+					<th>V8GL</th>
+					<th>lycheeJS</th>
+				</tr>
+				<tr>
+					<td>
+						<b>OpenGL, freeglut</b><br>
+						<br>
+						glGenTextures()
+					</td>
+					<td>
+						<b>Templates in V8GL</b><br>
+						<br>
+						api::Texture::handleNew(const v8::Arguments&amp; args)
+					</td>
+					<td></td>
+				</tr>
+				<tr><td colspan="3">&nbsp;</td></tr>
+				<tr>
+					<td>
+						<b>Pointer to instance</b><br>
+						<br>
+						api::Texture
+					</td>
+					<td>
+						<b>Custom Data Types</b><br>
+						<br>
+						var texture = new Texture(url);
+					</td>
+					<td></td>
+				</tr>
+				<tr><td colspan="3">&nbsp;</td></tr>
+				<tr>
+					<td></td>
+					<td>
+						<b>JavaScript Context</b><br>
+						<br>
+						gl.bindTexture(texture.id)
+					</td>
+					<td>
+						<b>Highlevel API</b><br>
+						<br>
+						Renderer.drawSprite(img, x, y, map);
+					</td>
+				</tr>
+			</table>
+		</article>
+
+		<article>
+			<h3>Impact for lycheeJS</h3>
+			<ul>
+				<li>Primarily use High Level APIs</li>
+				<li>Accessing platform-specific APIs is forbidden (e.g. CanvasRenderingContext2D)</li>
+				<li>Outsourcing of platform-specific code, such as Renderer or Preloader</li>
+				<li>Game Code still is Game Code:</li>
+				<li>Allow dirty hacks outside the game engine stack, e.g. for window.onorientationchange or glut.reshapeFunc()</li>
+			</ul>
+		</article>
+
+		<article>
+			<h3>V8GL Integration</h3>
+			<p>
+				Requirements for integrating the engine stack to V8GL:
+			</p>
+			<ul>
+				<li>Export the environment setup (e.g. requirements, inclusions)</li>
+				<li>Shrink down the required libraries for the targeted v8gl platform tag</li>
+				<li>Some Polyfills are inavoidable, e.g. setInterval or setTimeout</li>
+			</ul>
+		</article>
+
+		<article class="smaller">
+			<h3>Example: Initialization of lycheeJS</h3>
+			<pre>
+&lt;script type='text/javascript'&gt;
+// Rebase required namespaces for inclusion
+lychee.rebase({
+	lychee: "../../lychee",
+	game: "./source"
+});
+		
+// Tags are required to determine which platform-specific libraries to load
+(function(lychee, global) {
+		
+	var platform = [ 'webgl', 'html' ];
+	if (global.navigator && global.navigator.appName === 'V8GL') {
+		platform = [ 'v8gl' ];
+	}
+							
+	lychee.tag({ platform: platform });
+											
+})(this.lychee, this);
+											
+// Everything is ready, so build the game requirements
+lychee.build(function(lychee, global) {
+	var settings = { base: './asset', music: true, sound: true };
+	new game.Main(settings);
+}, this);
+&lt;/script&gt;
+			</pre>
+		</article>
+
+
+		<article>
+			<h1>Polyfills</h1>
+			<p>
+				Example Polyfill for setInterval;<br>
+				Why freeglut makes sense.
+			</p>
+		</article>
+
+		<article>
+			<h3>Polyfill Example for setInterval</h3>
+			<p>
+				The API is going through different levels
+				of hierarchy when being called:
+			</p>
+			<table>
+				<tr>
+					<th>JavaScript</th>
+					<td>global.setInterval(callback, timeout)</td>
+				</tr>
+				<tr>
+					<th>JavaScript</th>
+					<td>glut.timerFunc(timeout, callback, intervaldata)</td>
+				</tr>
+				<tr><td colspan="2"><hr></td></tr>
+				<tr>
+					<th>V8GL</th>
+					<td>bindings::GLUT::handleTimerFunc(const v8::Arguments&amp; args)</td>
+				</tr>
+				<tr>
+					<th>freeglut</th>
+					<td>glutTimerFunc(int msecs, void (*func)(int value), value)</td>
+				</tr>
+			</table>
+		</article>
+
+		<article class="smaller">
+			<h3>Polyfills for JavaScript in JavaScript: JSeption</h3>
+			<pre>
+&lt;script type='text/javascript'&gt;
+global.setInterval = function(callback, delay) {
+	callback = callback instanceof Function ? callback : null;
+	delay = typeof delay === 'number' ? delay : 0;
+	if (callback !== null) {
+		var timer = {
+			id: _intervalId++,
+			_disabled: false,
+			scope: global,
+			callback: callback,
+			delay: delay,
+			start: Date.now()
+		};
+
+		timer._interval = function(timer) {
+
+			if (timer._disabled === false) {
+				timer.callback.call(timer.scope, Date.now() - timer.start);
+				glut.timerFunc(timer.delay, timer._interval, timer);
+			}
+
+		};
+
+		glut.timerFunc(timer.delay, timer._interval, timer);
+
+		return timer;
+	}
+	return null;
+};
+&lt;/script&gt;
+			</pre>
+		</article>
+
+		<article>
+			<h1>Demo Time: V8GL</h1>
+			<p>...</p>
+		</article>
+
+		<article>
+			<h3>Sharing the Knowledge</h3>
+			<p>Well documented Browser APIs, but what about...</p>
+			<ul>
+				<li>Best Practices in (JS) Game development</li>
+				<li>Documentation of low level JIT concepts</li>
+				<li>Documentation of Garbage Collector concepts</li>
+				<li>Memory Allocation</li>
+				<li>Callstacks</li>
+			</ul>
+		</article>
+
+		<article class="smaller">
+			<h3>Fuck it, I need performance!</h3>
+<pre>
+&lt;script type='text/javascript'&gt;
+var foo = function() {
+	this.name = 'bar';
+};
+
+var bar = function() {};
+bar.name = 'foo';
+
+var foobar = function() {};
+foobar.prototype.name = 'bar';
+
+
+// What's the difference?
+new foo().name;
+foo().name;
+
+new bar().name;
+new foobar().name;
+&lt;/script&gt;
+</pre>
+		</article>
+
+		<article class="smaller">
+			<h3>Fuck it, I need performance!</h3>
+<pre>
+&lt;script type='text/javascript'&gt;
+var entity = function() {
+	this.x = 0;
+	this.y = 0;
+	this.z = 0;
+};
+
+entity.update = function() {
+	this.x = this.__tweenX();
+	this.y = this.__tweenY();
+	this.z = this.__tweenZ();
+};
+
+entity.getPosition = function() {
+	return { x: this.x, y: this.y, z: this.z };
+};
+&lt;/script&gt;
+</pre>
+		</article>
+
+		<article class="smaller">
+			<h3>Fuck it, I need performance!</h3>
+<pre>
+&lt;script type='text/javascript'&gt;
+var entity = function() {
+	this.__cache = { x: 0, y: 0, z: 0 };
+};
+
+entity.update = function() {
+	this.__cache.x = this.__tweenX();
+	this.__cache.Y = this.__tweenY();
+	this.__cache.Z = this.__tweenZ();
+};
+
+entity.getPosition = function() {
+	return this.__cache;
+};
+&lt;/script&gt;
+		</article>
+
+		<article>
+			<h1>State of development</h1>
+			<p>Me haz the future</p>
+		</article>
+
+		<article>
+			<h3>State of development</h3>
+			<p>Comparison with the market:</p>
+			<ul>
+				<li>Faster by <b>factor&nbsp;20.000+</b> than AppMobi and ImpactJS or CocoonJS</li>
+				<li>Single codebase of the game, no difference across all platforms</li>
+				<li>ADK: Builds for Linux, Android, Web (Facebook), Windows</li> 
+				<li>ADK: Packaging for Linux (Debian/Ubuntu), Android (APK / Play Store)</li>
+		</article>
+
+		<article>
+			<h3>State of development</h3>
+			<p>Next Steps in the development process are:</p>
+			<ul>
+				<li>V8GL: complete GLES 2.0 Bindings</li>
+				<li>lycheeJS: platform/v8gles</li>
+				<li>V8GL: OpenAL / OpenSL bindings</li>
+				<li>V8GL: Typed Arrays and WebGL bindings</li>
+				<li>freeglut: Multi-Touch API, Touchscreen integration</li>
+				<li>Guides and Tutorials!</li>
+				<li>ADK: Packaging for OSX and Windows (maybe with Installer?)</li>
+			</ul>
+		</article>
+
+		<article>
+			<h1>Sponsoring</h1>
+			<p>Buy me a beer at <a href="http://martens.ms/lycheeJS/#buy-beer">http://martens.ms/lycheeJS/#buy-beer</a>
+		</article>
+
+		<article>
+			<h1>Time for questions</h1>
+			<p>
+				Oh noez, what have I done?
+			</p>
+			<br>
+			<br>
+			<p>
+				Twitter: <a href="http://twitter.com/martensms">@martensms</a>,&nbsp;
+				Github: <a href="http://github.com/martensms">martensms</a>,&nbsp;
+				Website: <a href="http://martens.ms/lycheeJS">http://martens.ms/lycheeJS</a>
+			</p>
+		</article>
+
+    </section>
+
+  </body>
+</html>

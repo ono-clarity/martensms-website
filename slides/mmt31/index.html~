@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cross-Platform Games with JavaScript</title>
+
+	<meta charset='utf-8'>
+	<script src="slides.js"></script>
+</head>
+
+<body style='display: none'>
+
+	<section class='slides layout-regular template-default'>
+
+		<article>
+			<h1>Cross-Platform Games with JavaScript</h1>
+			<p>
+				Christoph Martens (<a href="http://twitter.com/martensms">@martensms</a>)<br>
+				MMT 31, 06. August 2012
+			</p>
+			<br><br>
+			<p>
+				About: <a href="http://github.com/martensms/lycheeJS">lycheeJS</a>,&nbsp;
+				<a href="http://github.com/martensms/lycheeJS-adk">lycheeJS-adk</a>
+			</p>
+		</article>
+
+		<article>
+			<h3>Long, long ago... there was the IngenioJS prototype</h3>
+			<ul class="build">
+				<li>Fun-project End 2010</li>
+				<li>object centric RPG engine</li>
+				<li>Splitted in Renderer, Compositor and Physics</li>
+				<li>Rendering via DOM (HTML) due to slow canvas</li>
+				<li>Used CSS Animations, Transitions and Events via Feature Detection</li>
+				<li>supports multiple Viewports</li>
+			</ul>
+		</article>
+
+		<article>
+			<h3>ingenioJS: Gameplay demo</h3>
+			<iframe src="./ingenioJS/game.html"></iframe>
+		</article>
+
+		<article>
+			<h3>ingenioJS: Editor Demo</h3>
+			<iframe src="./ingenioJS/editor.html"></iframe>
+		</article>
+
+		<article>
+			<h3>ingenioJS: Gained Experience</h3>
+			<ul class="build">
+				<li>DOM rendering is made for dirty rectangles</li>
+				<li>Multi layering and hitmaps</li>
+				<li>AABB intersections</li>
+				<li>2D should use entities</li>
+				<li>2.5D or multi-layers should use objects</li>
+				<li>Audio API is buggy to hell</li>
+			<ul>
+		</article>
+
+		<article>
+			<h1>lycheeJS</h1>
+			<p>Cross-platform game library</p>
+		</article>
+
+		<article>
+			<h3>Result: lycheeJS</h3>
+			<ul class="build">
+				<li>completely open source (MIT license)</li>
+				<li>Mobile First, Desktop inclusive</li>
+				<li>Requirement system is made for Feature Detection</li>
+				<li>Supports platform specific implementations</li>
+				<li>Supports tracking of platform specific requirements</li>
+				<li>Supports dirty hacks (but outside the engine stack)</li>
+				<li>(for now) Entity based rendering stack</li>
+				<li>Many delicacies like lychee.Jukebox or lychee.Font</li>
+			</ul>
+		</article>
+
+		<article>
+			<h3>lycheeJS: Prototyping a Jewelz-clone game</h3>
+			<h3 style="margin: 7em auto; text-align:center;">
+				Click: <a href="http://martens.ms/lycheeJS/game/jewelz" target="_blank">8Bit Jewelz</a>
+			</h3>
+		</article>
+
+		<article>
+			<h3>lycheeJS: MOAR LAZERS!</h3>
+			<ul class="build">
+				<li>Browsers are not enough, need more platforms!</li>
+				<li>Generic tag based builds (e.g. platform: WebGL, Canvas, DOM)</li>
+				<li>iOS: WebView</li>
+				<li>Performance on Android 4 and Chrome: Acceptable</li>
+				<li>Performance on Android 2.3: Crap</li>
+			</ul>
+		</article>
+
+		<article>
+			<h3>Minimum Requirements for delivering other platforms</h3>
+			<ul class="build">
+				<li>lychee core: definition, environment and dependency setup</li>
+				<li>lychee.Builder: dependency tracking and initialization</li>
+				<li>platform-specific lychee.Preloader</li>
+				<li>platform-specific lychee.Renderer</li>
+				<li>Full support also requires a lychee.Jukebox and lychee.Input implementation</li>
+			</ul>
+		</article>
+
+		<article>
+			<h1>V8 meets OpenGL</h1>
+			<p>The birth of <a href="http://github.com/martensms/lycheeJS-adk">lycheeJS-ADK</a></p>
+		</article>
+
+		<article>
+			<h3>Why using V8?</h3>
+			<ul class="build">
+				<li>is by far the fastest JIT compiler and -runtime</li>
+				<li>supports all major architectures (ARM, IA32, X64, MIPS)</li>
+				<li>runs on all major desktop environments</li>
+				<li>supports the Android NDK (Native development kit)</li>
+			</ul>
+		</article>
+
+		<article>
+			<h3>Why OpenGL?</h3>
+			<ul class="build">
+				<li>Android 2.3+ has OpenGL ES 2.0 bindings for Android NDK</li>
+				<li>OpenGL bindings are also available on all major desktop environments</li>
+				<li>GLUT: freeglut supports Android NDK</li>
+			</ul>
+		</article>
+
+		<article class="smaller">
+			<h3>(Simplified) Architecture of the lycheeJS-ADK</h3>
+			<table>
+				<tr>
+					<th>Native Side</th>
+					<th>V8GL</th>
+					<th>lycheeJS</th>
+				</tr>
+				<tr>
+					<td>
+						<b>OpenGL, freeglut</b><br>
+						<br>
+						glGenTextures()
+					</td>
+					<td>
+						<b>Templates in V8GL</b><br>
+						<br>
+						api::Texture::handleNew(const v8::Arguments&amp; args)
+					</td>
+					<td></td>
+				</tr>
+				<tr><td colspan="3">&nbsp;</td></tr>
+				<tr>
+					<td>
+						<b>Pointer to instance</b><br>
+						<br>
+						api::Texture
+					</td>
+					<td>
+						<b>Custom Data Types</b><br>
+						<br>
+						var texture = new Texture(url);
+					</td>
+					<td></td>
+				</tr>
+				<tr><td colspan="3">&nbsp;</td></tr>
+				<tr>
+					<td></td>
+					<td>
+						<b>JavaScript Context</b><br>
+						<br>
+						gl.bindTexture(texture.id)
+					</td>
+					<td>
+						<b>Highlevel API</b><br>
+						<br>
+						Renderer.drawSprite(img, x, y, map);
+					</td>
+				</tr>
+			</table>
+		</article>
+
+		<article>
+			<h3>Impact for lycheeJS</h3>
+			<ul class="build">
+				<li>Primarily use High Level APIs</li>
+				<li>Accessing platform-specific APIs is forbidden (e.g. CanvasRenderingContext2D)</li>
+				<li>Outsourcing of platform-specific code, such as Renderer or Preloader</li>
+				<li>Game Code still is Game Code:</li>
+				<li>Allow dirty hacks outside the game engine stack, e.g. for window.onorientationchange or glut.reshapeFunc()</li>
+			</ul>
+		</article>
+
+		<article>
+			<h3>Platform Integration</h3>
+			<p>
+				Requirements for integrating the engine stack to a platform:
+			</p>
+			<ul class="build">
+				<li>Export the environment setup (e.g. requirements, inclusions)</li>
+				<li>Shrink down the required libraries for the targeted v8gl platform</li>
+				<li>Some Polyfills are inavoidable, e.g. setInterval or setTimeout</li>
+			</ul>
+		</article>
+
+		<article class="smaller">
+			<h3>Example: Interaction with the lycheeJS-ADK</h3>
+			<pre>
+&lt;script type='text/javascript'&gt;
+// Rebase required namespaces for inclusion
+lychee.rebase({
+	lychee: "../../lychee",
+	game: "./source"
+});
+		
+// Tags are required to determine which platform-specific libraries to load
+(function(lychee, global) {
+		
+	var platform = [ 'webgl', 'html' ];
+	if (global.navigator && global.navigator.appName === 'V8GL') {
+		platform = [ 'v8gl' ];
+	}
+							
+	lychee.tag({ platform: platform });
+											
+})(this.lychee, this);
+											
+// Everything is ready, so build the game requirements
+lychee.build(function(lychee, global) {
+											
+	var settings = { base: './asset', music: true, sound: true };
+	new game.Main(settings);
+																				
+}, this);
+&lt;/script&gt;
+			</pre>
+		</article>
+
+
+		<article>
+			<h1>Polyfills</h1>
+			<p>
+				Example Polyfill for setInterval;<br>
+				Why freeglut makes sense.
+			</p>
+		</article>
+
+		<article>
+			<h3>Polyfill Example for setInterval</h3>
+			<p>
+				The API is going through different levels
+				of hierarchy when being called:
+			</p>
+			<ul class="build">
+				<li>JavaScript: global.setInterval(callback, timeout)</li>
+				<li>JavaScript Polyfill: glut.timerFunc(timeout, callback, intervaldata)</li>
+				<li>V8GL: bindings::GLUT::handleTimerFunc(const v8::Arguments&amp; args)</li>
+				<li>freeglut: glutTimerFunc(int msecs, void (*func)(int value), value)</li>
+			</ul>
+		</article>
+
+		<article class="smaller">
+			<h3>Polyfills for JavaScript in JavaScript: JSeption</h3>
+			<pre>
+&lt;script type='text/javascript'&gt;
+global.setInterval = function(callback, delay) {
+	callback = callback instanceof Function ? callback : null;
+	delay = typeof delay === 'number' ? delay : 0;
+	if (callback !== null) {
+		var timer = {
+			id: _intervalId++,
+			_disabled: false,
+			scope: global,
+			callback: callback,
+			delay: delay,
+			start: Date.now()
+		};
+
+		timer._interval = function(timer) {
+
+			if (timer._disabled === false) {
+				timer.callback.call(timer.scope, Date.now() - timer.start);
+				glut.timerFunc(timer.delay, timer._interval, timer);
+			}
+
+		};
+
+		glut.timerFunc(timer.delay, timer._interval, timer);
+
+		return timer;
+	}
+	return null;
+};
+&lt;/script&gt;
+			</pre>
+		</article>
+
+		<article>
+			<h1>Demo Time: V8GL</h1>
+			<p>
+				(Note: This was apparently launching a demo of the V8GL test suite
+				showing a sample 3D program in GL/GLUT)
+			</p>
+		</article>
+
+		<article>
+			<h1>Status of development</h1>
+			<p>Next Steps</p>
+		</article>
+
+		<article>
+			<h3>Status of development</h3>
+			<p>Next Steps in the development process are:</p>
+			<ul class="build">
+				<li>Typed Arrays</li>
+				<li>V8GL: GLES 2.0 Bindings</li>
+				<li>V8GL: Multi-threaded rendering (Bitch, please!)</li>
+				<li>V8GL: OpenAL / OpenSL bindings</li>
+				<li>lycheeJS (platform:v8gl): lychee.Renderer and lychee.Jukebox</li>
+				<li>freeglut: Multi-Touch API, Touchscreen integration</li>
+				<li>lycheeJS: lychee.Input</li>
+			</ul>
+		</article>
+
+		<article>
+			<h1>Time for questions</h1>
+			<p>
+				Oh noez, what have I done?
+			</p>
+			<br>
+			<br>
+			<p>
+				Twitter: <a href="http://twitter.com/martensms">@martensms</a>,&nbsp;
+				Github: <a href="http://github.com/martensms">martensms</a>
+			</p>
+		</article>
+
+    </section>
+
+  </body>
+</html>
