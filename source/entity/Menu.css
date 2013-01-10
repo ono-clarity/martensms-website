@@ -38,6 +38,7 @@
 	transition: line-height 500ms ease-out;
 	-moz-transition: line-height 500ms ease-out;
 	-webkit-transition: line-height 500ms ease-out;
+	overflow: hidden;
 }
 
 .website-entity-Menu.active header {

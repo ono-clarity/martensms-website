@@ -167,19 +167,88 @@
 		<header>StegIt</header>
 	</div>
 
+	<article data-id="development-stegit" class="website-entity-Content default">
+
+		<p>
+			StegIt is a program that I developed in 2008 for understanding
+			simple steganographic and cryptographic methods.
+		</p>
+		<p>
+			The tool is designed to encrypt data inside pictures by
+			using a steganographic algorithm (combined with ARC4).
+		</p>
+		<p>
+			StegIt mostly searches for rectangles of the (nearly) same
+			color inside a picture, offsets the similar colors
+			closer to each other and uses the last bits of each color
+			information for hiding another file in it.
+		</p>
+		<p>
+			It's also using ARC4 for simple stream encryption.
+		</p>
+
+		<div class="website-entity-Gallery default">
+			<a target="_blank" title="StegIt Example Usage (for encryption)" href="./asset/img/stegit-01.png"><img src="./asset/img/stegit-01_preview.png"/></a>
+			<a target="_blank" title="Original File used for encryption" href="./asset/img/stegit-02-original.jpg"><img src="./asset/img/stegit-02_preview.png"/></a>
+			<a target="_blank" title="Encrypted File with secret data inside" href="./asset/img/stegit-03-encrypted.jpg"><img src="./asset/img/stegit-03_preview.png"/></a>
+		</div>
+
+		<p class="links">
+			Download:
+				<a target="_blank" title="Archive containing Source Files" href="./raw/stegit.tar.gz">stegit.tar.gz (i386)</a>,
+				<a target="_blank" title="Archive containing Source Files" href="./raw/stegit.zip">stegit.zip (i386)</a>
+		</p>
+
+	</article>
 
 
 	<div id="development-jukebox" class="website-entity-Menu default">
 		<header>Zynga&nbsp;Jukebox</header>
 	</div>
 
+	<article data-id="development-jukebox" class="website-entity-Content default">
+
+		<p>
+			Sophisticated Audio Playback for the Web
+		</p>
+		<p>
+			The Zynga Jukebox is an HTML5 Audio library that fixes
+			many bugs and issues you will have to face when you want
+			a cross-platform audio playback solution.
+		</p>
+		<p>
+			I named the concept automatic stream correction. Due
+			to the Web Browsers not allowing accurate validation of
+			audio spritemap positions in a reliable way, the stream
+			correction loop is running and verifying the current
+			stream position of each track that is currently played.
+		</p>
+		<p>
+			The Zynga Jukebox was targeting simple playback and is
+			using HTML5 Audio (not Web Audio) for playing back
+			sounds. A Flash fallback allowed to have the same API
+			available on unsupported systems. It managed to fix
+			most of the occuring issues on mobiles with its concept.
+		</p>
+
+		<div class="website-entity-Gallery default">
+			<a target="_blank" title="Jukebox' Dubstep Sequencer Demo" href="./asset/img/jukebox-01.png"><img src="./asset/img/jukebox-01_preview.png"/></a>
+			<a target="_blank" title="Jukebox' Multiple Track Demo" href="./asset/img/jukebox-02.png"><img src="./asset/img/jukebox-02_preview.png"/></a>
+			<a target="_blank" title="Jukebox' Single Track Demo" href="./asset/img/jukebox-03.png"><img src="./asset/img/jukebox-03_preview.png"/></a>
+		</div>
+
+		<p class="links">
+			Official website: <a target="_blank" href="http://zynga.github.com/jukebox">http://zynga.github.com/jukebox</a><br>
+			Repository: <a target="_blank" title="Zynga Jukebox repository" href="https://github.com/zynga/jukebox">https://github.com/zynga/jukebox</a>
+		</p>
+
+	</article>
+
 
 
 	<div id="development-speedrun" class="website-entity-Menu default">
 		<header>Zynga&nbsp;Speedrun</header>
 	</div>
-
-
 
 	<div id="media" class="website-entity-Menu default">
 		<header>Media</header>

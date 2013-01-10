@@ -21,11 +21,21 @@ lychee.define('website.entity.Gallery').tags({
 	var _description = global.document.createElement('div');
 	_description.id = 'website-entity-Gallery-description';
 
+	var _fullsize = global.document.createElement('a');
+	_fullsize.innerHTML = 'View picture in full size';
+	_fullsize.setAttribute('target', '_blank');
+	_fullsize.setAttribute('href',   '');
+
 	_wrapper.appendChild(_content);
+	_wrapper.appendChild(_fullsize);
 	_wrapper.appendChild(_description);
 
-	_wrapper.addEventListener('click', function() {
-		_wrapper.className = 'default';
+	_wrapper.addEventListener('click', function(event) {
+
+		if (event.target !== _fullsize) {
+			_wrapper.className = 'default';
+		}
+
 	}, this);
 
 	global.document.body.appendChild(_wrapper);
@@ -42,12 +52,13 @@ lychee.define('website.entity.Gallery').tags({
 
 		// 2. Update
 		_content.appendChild(asset);
+		_fullsize.setAttribute('href', map.url);
 		_description.innerHTML = description;
 
 		// 3. Animation
 		setTimeout(function() {
 			_wrapper.className = 'active';
-		}, 0);
+		}, 500);
 
 
 		if (map.notification !== null) {
@@ -62,6 +73,7 @@ lychee.define('website.entity.Gallery').tags({
 		_wrapper.className = 'default';
 
 		var url = this.getAttribute('href');
+		var description = this.getAttribute('title');
 
 		if (_preloader.get(url) === null) {
 
@@ -69,17 +81,21 @@ lychee.define('website.entity.Gallery').tags({
 
 			_preloader.load(url, {
 				url: url,
-				description: this.getAttribute('title'),
+				description: description,
 				notification: notification
 			});
 
 		} else {
 
-			_show(_preloader.get(url), {
-				url: url,
-				description: this.getAttribute('title'),
-				notification: null
-			});
+			setTimeout(function() {
+
+				_show(_preloader.get(url), {
+					url: url,
+					description: description,
+					notification: null
+				});
+
+			}, 500);
 
 		}
 

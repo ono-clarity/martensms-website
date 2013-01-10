@@ -2,7 +2,7 @@
 #website-entity-Gallery {
 	display: block;
 	position: absolute;
-	top: 5%;
+	top: 10%;
 	right: auto;
 	bottom: auto;
 	left: 2%;
@@ -16,6 +16,13 @@
 	background: #444;
 	overflow: auto;
 	z-index: 10;
+}
+
+#website-entity-Gallery a {
+	display: block;
+	margin: 1em;
+	color: #00b7b5;
+	text-align: center;
 }
 
 #website-entity-Gallery img {
@@ -40,7 +47,7 @@
 }
 
 #website-entity-Gallery.active {
-	top: 5%;
+	top: 10%;
 	transition: all 500ms ease-out;
 	-moz-transition: all 500ms ease-out;
 	-webkit-transition: all 500ms ease-out;
