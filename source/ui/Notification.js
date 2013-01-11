@@ -11,9 +11,10 @@ lychee.define('website.ui.Notification').tags({
 	global.document.body.appendChild(_wrapper);
 
 
-	var Class = function(message) {
+	var Class = function(message, destroyable) {
 
-		message = typeof message === 'string' ? message : null;
+		message     = typeof message === 'string' ? message : null;
+		destroyable = destroyable === false ? false : true;
 
 
 		var that = this;
@@ -22,9 +23,16 @@ lychee.define('website.ui.Notification').tags({
 		_wrapper.insertBefore(this.__element, _wrapper.firstChild);
 
 
-		this.__element.addEventListener('click', function() {
-			that.setState('inactive');
-		}, true);
+		if (destroyable === true) {
+			this.__element.addEventListener('click', function() {
+				that.setState('inactive', true);
+			}, true);
+		} else {
+			this.__element.addEventListener('click', function() {
+				that.setState('inactive', false);
+			}, true);
+		}
+
 
 		this.setMessage(message);
 
@@ -47,7 +55,9 @@ lychee.define('website.ui.Notification').tags({
 			this.__element.innerHTML = message;
 		},
 
-		setState: function(id) {
+		setState: function(id, destroy) {
+
+			destroy = destroy === true ? true : false;
 
 			if (this.__element) {
 
@@ -60,10 +70,14 @@ lychee.define('website.ui.Notification').tags({
 
 					this.__element.className = 'inactive';
 
-					var that = this;
-					setTimeout(function() {
-						that.__destroy();
-					}, 2000);
+					if (destroy === true) {
+
+						var that = this;
+						setTimeout(function() {
+							that.__destroy(destroy === true);
+						}, 2000);
+
+					}
 
 					return true;
 
@@ -83,6 +97,9 @@ lychee.define('website.ui.Notification').tags({
 		 */
 
 		__destroy: function() {
+
+console.log('destruction!');
+
 			if (this.__element && this.__element.parentNode) {
 				_wrapper.removeChild(this.__element);
 			}

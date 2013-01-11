@@ -63,7 +63,7 @@ lychee.define('website.entity.Gallery').tags({
 
 
 		if (map.notification !== null) {
-			map.notification.hide();
+			map.notification.setState('inactive', true);
 		}
 
 	};

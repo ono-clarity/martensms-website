@@ -64,11 +64,12 @@ lychee.define('website.state.Scene').tags({
 		this.__input = this.game.input;
 		this.__loop  = this.game.loop;
 
-		this.__active     = null;
-		this.__entities   = [];
-		this.__history    = [];
-		this.__locked     = true;
-		this.__map        = {};
+		this.__active       = null;
+		this.__entities     = [];
+		this.__history      = [];
+		this.__locked       = true;
+		this.__map          = {};
+		this.__notification = null;
 
 
 		this.reset();
@@ -291,6 +292,10 @@ lychee.define('website.state.Scene').tags({
 
 				return true;
 
+			} else {
+
+				this.__notify('The content for ' + id + ' is not ready yet. Stay tuned!');
+
 			}
 
 
@@ -356,6 +361,17 @@ lychee.define('website.state.Scene').tags({
 
 
 			return found;
+
+		},
+
+		__notify: function(message) {
+
+			if (this.__notification === null) {
+				this.__notification = new website.ui.Notification(message, false);
+			} else {
+				this.__notification.setMessage(message);
+				this.__notification.setState('active');
+			}
 
 		},
 
