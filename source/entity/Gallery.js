@@ -15,6 +15,14 @@ lychee.define('website.entity.Gallery').tags({
 	_wrapper.id = 'website-entity-Gallery';
 	_wrapper.className = 'default';
 
+	var _close = global.document.createElement('div');
+	_close.id = 'website-entity-Gallery-close';
+	_close.innerHTML = 'Close';
+
+	_close.addEventListener('click', function(event) {
+		_wrapper.className = 'default';
+	}, true);
+
 	var _content = global.document.createElement('div');
 	_content.id = 'website-entity-Gallery-content';
 
@@ -26,17 +34,10 @@ lychee.define('website.entity.Gallery').tags({
 	_fullsize.setAttribute('target', '_blank');
 	_fullsize.setAttribute('href',   '');
 
+	_wrapper.appendChild(_close);
 	_wrapper.appendChild(_content);
 	_wrapper.appendChild(_fullsize);
 	_wrapper.appendChild(_description);
-
-	_wrapper.addEventListener('click', function(event) {
-
-		if (event.target !== _fullsize) {
-			_wrapper.className = 'default';
-		}
-
-	}, this);
 
 	global.document.body.appendChild(_wrapper);
 

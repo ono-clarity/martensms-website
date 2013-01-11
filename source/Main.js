@@ -125,8 +125,6 @@ lychee.define('website.Main').requires([
 
 			this.setState('scene');
 
-			new website.ui.Notification('This site is currently under development. Its content increases the next couple days.');
-
 			this.start();
 
 		},
