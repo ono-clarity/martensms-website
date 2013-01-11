@@ -35,9 +35,9 @@
 .website-entity-Content.default {
 	opacity: 0;
 	bottom: 100%;
-	transition: all 250ms ease-in;
 	-moz-transition: all 250ms ease-in;
 	-webkit-transition: all 250ms ease-in;
+	transition: all 250ms ease-in;
 }
 
 /* Fix for some rendering issues in WebKit and Gecko */
@@ -48,9 +48,9 @@
 .website-entity-Content.active {
 	opacity: 1;
 	bottom: 10%;
-	transition: all 250ms ease-out;
 	-moz-transition: all 250ms ease-out;
 	-webkit-transition: all 250ms ease-out;
+	transition: all 250ms ease-out;
 }
 
 /* Fix for some rendering issues in WebKit and Gecko */
@@ -61,16 +61,16 @@
 
 .website-entity-Content.default * {
 	opacity: 0;
-	transition: all 500ms ease-out;
 	-moz-transition: all 500ms ease-out;
 	-webkit-transition: all 500ms ease-out;
+	transition: all 500ms ease-out;
 }
 
 .website-entity-Content.active * {
 	opacity: 1;
-	transition: all 500ms ease-out;
 	-moz-transition: all 500ms ease-out;
 	-webkit-transition: all 500ms ease-out;
+	transition: all 500ms ease-out;
 }
 
 
