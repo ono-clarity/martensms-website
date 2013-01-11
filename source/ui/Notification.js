@@ -15,17 +15,23 @@ lychee.define('website.ui.Notification').tags({
 
 		message = typeof message === 'string' ? message : null;
 
-		this.__element = document.createElement('li');
 
 		var that = this;
+
+		this.__element = document.createElement('li');
+		_wrapper.insertBefore(this.__element, _wrapper.firstChild);
+
+
 		this.__element.addEventListener('click', function() {
-			that.hide();
+			that.setState('inactive');
 		}, true);
 
 		this.setMessage(message);
 
 		if (message !== null) {
-			this.show();
+			setTimeout(function() {
+				that.setState('active');
+			}, 0);
 		}
 
 	};
@@ -33,17 +39,50 @@ lychee.define('website.ui.Notification').tags({
 
 	Class.prototype = {
 
+		/*
+		 * PUBLIC API
+		 */
+
 		setMessage: function(message) {
 			this.__element.innerHTML = message;
 		},
 
-		show: function() {
+		setState: function(id) {
+
 			if (this.__element) {
-				_wrapper.insertBefore(this.__element, _wrapper.firstChild);
+
+				if (id === 'active') {
+
+					this.__element.className = 'active';
+					return true;
+
+				} else if (id === 'inactive') {
+
+					this.__element.className = 'inactive';
+
+					var that = this;
+					setTimeout(function() {
+						that.__destroy();
+					}, 2000);
+
+					return true;
+
+				}
+
 			}
+
+
+			return false;
+
 		},
 
-		hide: function() {
+
+
+		/*
+		 * PRIVATE API
+		 */
+
+		__destroy: function() {
 			if (this.__element && this.__element.parentNode) {
 				_wrapper.removeChild(this.__element);
 			}

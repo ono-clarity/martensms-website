@@ -165,6 +165,7 @@ lychee.define('website.state.Scene').tags({
 			}
 
 
+			// 3. Validate active Menu
 			var path = this.__findPath(active, this.__map.welcome);
 			if (path !== null) {
 

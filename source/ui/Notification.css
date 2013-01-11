@@ -21,9 +21,48 @@ ul#website-ui-Notification > li {
 	border: 1px solid #f66;
 	border-radius: 5px;
 	text-align: center;
+	cursor: pointer;
+	-moz-transition: 1s opacity ease-out;
+	-webkit-transition: 1s opacity ease-out;
+	transition: 1s opacity ease-out;
+	box-shadow: 0px 0px 10px 2px rgba(255, 102, 102, 1.0);
+	opacity: 0;
+}
+
+ul#website-ui-Notification > li.active {
+	opacity: 1;
 	animation: _notificationidle 3s infinite linear;
 	-moz-animation: _notificationidle 3s infinite linear;
 	-webkit-animation: _notificationidle 3s infinite linear;
-	cursor: pointer;
+	-moz-animation-delay: 1s;
+	-webkit-animation-delay: 1s;
+	animation-delay: 1s;
+}
+
+ul#website-ui-Notification > li.inactive {
+	opacity: 0;
+	-moz-animation: none;
+	-webkit-animation: none;
+	animation: none;
+}
+
+
+
+@-moz-keyframes _notificationidle {
+	0% {   opacity: 1.0; box-shadow: 0px 0px 10px 2px rgba(255, 102, 102, 1.0); }
+	50% {  opacity: 0.8; box-shadow: 0px 0px 10px 2px rgba(255, 102, 102, 0.5); }
+	100% { opacity: 1.0; box-shadow: 0px 0px 10px 2px rgba(255, 102, 102, 1.0); }
+}
+
+@-webkit-keyframes _notificationidle {
+	0% {   opacity: 1.0; box-shadow: 0px 0px 10px 2px rgba(255, 102, 102, 1.0); }
+	50% {  opacity: 0.8; box-shadow: 0px 0px 10px 2px rgba(255, 102, 102, 0.5); }
+	100% { opacity: 1.0; box-shadow: 0px 0px 10px 2px rgba(255, 102, 102, 1.0); }
+}
+
+@-keyframes _notificationidle {
+	0% {   opacity: 1.0; box-shadow: 0px 0px 10px 2px rgba(255, 102, 102, 1.0); }
+	50% {  opacity: 0.8; box-shadow: 0px 0px 10px 2px rgba(255, 102, 102, 0.5); }
+	100% { opacity: 1.0; box-shadow: 0px 0px 10px 2px rgba(255, 102, 102, 1.0); }
 }
 
