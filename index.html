@@ -8,13 +8,134 @@
 	<script src="external/lycheeJS/lychee/core.js"></script>
 	<script src="external/lycheeJS/lychee/Builder.js"></script>
 	<script src="external/lycheeJS/lychee/Preloader.js"></script>
+
+	<!-- platform-specific bootstrapping -->
 	<script src="external/lycheeJS/lychee/platform/html/bootstrap.js"></script>
 
 	<!-- build start -->
 	<script src="./source/Main.js"></script>
 	<link rel="stylesheet" href="./source/Main.css">
 
+	<!-- this needs to be here to avoid FOUC -->
 	<style>
+		#lychee-loading {
+			position: absolute;
+			z-index: 20;
+			top: 0px;
+			right: 0px;
+			bottom: 0px;
+			left: 0px;
+			background: #222;
+		}
+
+		#lychee-loading-Entity {
+			position: absolute;
+			top: -webkit-calc(50% - 65px);
+			left: -webkit-calc(50% - 65px);
+			width: 120px;
+			height: 120px;
+			border-radius: 100px;
+			vertical-align: middle;
+			text-align: center;
+			line-height: 120px;
+		}
+
+		#lychee-loading-Entity-deco1 {
+			display: block;
+			position: absolute;
+			top: -15px;
+			left: -15px;
+			width: 100%;
+			height: 100%;
+			background: transparent;
+			border-radius: 100px;
+			border: 14px solid #00b7b5;
+			-moz-animation: _decooneidle 15s infinite linear;
+			-webkit-animation: _decooneidle 15s infinite linear;
+			animation: _decooneidle 15s infinite linear;
+		}
+
+		#lychee-loading-Entity-deco1 > div {
+			display: block;
+			position: absolute;
+			border-bottom: 10px solid #00b7b5;
+			border-left: 10px solid transparent;
+			border-right: 10px solid transparent;
+			height: 0;
+			width: 30px;
+			opacity: 1;
+		}
+
+
+		#lychee-loading-Entity-deco1 > div:nth-child(1) {
+			top: -20px; left: 34px;
+		}
+
+		#lychee-loading-Entity-deco1 > div:nth-child(2) {
+			top: 18px; right: -30px;
+			-moz-transform: rotate(60deg);
+			-webkit-transform: rotate(60deg);
+			transform: rotate(60deg);
+		}
+
+		#lychee-loading-Entity-deco1 > div:nth-child(3) {
+			bottom: 18px; right: -30px;
+			-moz-transform: rotate(120deg);
+			-webkit-transform: rotate(120deg);
+			transform: rotate(120deg);
+		}
+
+		#lychee-loading-Entity-deco1 > div:nth-child(4) {
+			bottom: -20px; left: 34px;
+			-moz-transform: rotate(180deg);
+			-webkit-transform: rotate(180deg);
+			transform: rotate(180deg);
+		}
+
+		#lychee-loading-Entity-deco1 > div:nth-child(5) {
+			bottom: 18px; left: -30px;
+			-moz-transform: rotate(-120deg);
+			-webkit-transform: rotate(-120deg);
+			transform: rotate(-120deg);
+		}
+
+		#lychee-loading-Entity-deco1 > div:nth-child(6) {
+			top: 18px; left: -30px;
+			-moz-transform: rotate(-60deg);
+			-webkit-transform: rotate(-60deg);
+			transform: rotate(-60deg);
+		}
+
+		#lychee-loading-Entity-deco2 {
+			display: block;
+			position: absolute;
+			top: -16px;
+			left: -16px;
+			width: 146px;
+			height: 146px;
+			background: transparent;
+			border-radius: 140px;
+			border: 2px solid #222;
+		}
+
+
+		@-moz-keyframes _decooneidle {
+			0% {   -moz-transform: rotate(  0deg); }
+			100% { -moz-transform: rotate(360deg); }
+		}
+		
+		@-moz-keyframes _decothreeidle {
+			0% {   opacity: 1.0; }
+			50% {  opacity: 0.5; }
+			100% { opacity: 1.0; }
+		}
+		
+		@-webkit-keyframes _decooneidle {
+			0% {   -webkit-transform: rotate(  0deg); }
+			100% { -webkit-transform: rotate(360deg); }
+		}
+
+
 		#lychee-poweredby {
 			position: absolute;
 			top: auto;
@@ -25,6 +146,22 @@
 			color: #fff;
 			text-decoration: none;
 		}
+
+		@font-face {
+			font-family: 'Ubuntu';
+			src: url('./asset/fnt/ubuntur.eot');
+			src: url('./asset/fnt/ubuntur.eot?#iefix') format('embedded-opentype'),
+				url('./asset/fnt/ubuntur.woff') format('woff'),
+				url('./asset/fnt/ubuntur.ttf') format('truetype'),
+				url('./asset/fnt/ubuntur.svg#ubuntur') format('svg');
+			font-weight: normal;
+			font-style: normal;
+		}
+
+		body {
+			font-family: 'Ubuntu';
+		}
+
 	</style>
 
 </head>
@@ -33,6 +170,15 @@
 
 	<h1>Portfolio of Christoph Martens</h1>
 	<h2>JavaScript Enthusiast, Developer, Researcher</h2>
+
+	<div id="lychee-loading">
+		<div id="lychee-loading-Entity">
+			<header>initializing UI ...</header>
+			<div id="lychee-loading-Entity-deco1"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+			<div id="lychee-loading-Entity-deco2"></div>
+			<div id="lychee-loading-Entity-deco3"></div>
+		</div>
+	</div>
 
 	<div id="welcome" class="website-entity-Menu default">
 		<header>Welcome</header>

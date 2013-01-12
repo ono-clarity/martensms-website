@@ -179,7 +179,16 @@ lychee.define('website.state.Scene').tags({
 			}
 
 
-			this.__locked = false;
+			// 0. Remove Preloading Stuff (if loading hint is in DOM)
+			var loading = global.document.getElementById('lychee-loading');
+			if (loading !== null && loading.parentNode !== null) {
+
+				this.__loop.timeout(1000, function() {
+					loading.parentNode.removeChild(loading);
+				}, this);
+
+			}
+
 
 			this.__input.bind('touch', this.__processTouch, this);
 
