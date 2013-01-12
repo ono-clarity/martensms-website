@@ -231,10 +231,8 @@
 		</p>
 
 		<p>
-			If you want to contact me, you are welcome to do so
-			via <a href="https://twitter.com/martensms">Twitter</a>,
-			on <a href="https://github.com/martensms">Github</a>
-			or on <a href="https://www.facebook.com/martensms">Facebook</a>
+			If you want to contact me, you are welcome to do so.
+			My details are listed in the <a href="#contact">contact section</a>.
 		</p>
 
 	</article>
@@ -253,11 +251,59 @@
 	</div>
 
 
-<!--
+
 	<div id="research-skye" class="website-entity-Menu default">
 		<header>Skye Drone</header>
 	</div>
 
+	<article data-id="research-skye" class="website-entity-Content default">
+
+		<p>
+			The Skye Drone project started in December 2012.
+			Its goal is to design a drone capable of interaction
+			with humans via AI mechanisms to intelligently navigate
+			through buildings or other places.
+		</p>
+		<p>
+			The current AI implementation (January 2013) is the third
+			iteration, it was rewritten from scratch two times and is
+			using some parts of <a href="#research-skyn3t">SkyN3T</a>.
+		</p>
+		<p>
+			The underlying AI is divided in two different cortexes,
+			the active and passive cortex. The active is the high-level
+			control mechanism that is instructed by the AI, the passive
+			cortex is the low-level interaction.
+		</p>
+		<p>
+			For example, the flight controller is part of the passive
+			cortex to avoid problems if the higher AI level gets stuck
+			into problems with processing the instructions. It's also the
+			required security layer to avoid self destructing algorithms.
+		</p>
+		<p>
+			All high level algorithms are dynamically generated and
+			procedural instruction sets that are stored in a database
+			and are dynamically selectable and linkable by their criteria.
+		</p>
+
+		<p>
+			The Skye Drone is powered by <a href="#development-lycheeJS">lycheeJS</a>
+			and runs in NodeJS.
+		</p>
+
+		<div class="website-entity-Gallery default">
+			<a target="_blank" title="The Skye Drone (prototype/0.1a) based on the Raspberry Pi. Platform built with custom hardware in cooperation with rctimer.com" href="./asset/img/skye-01.png"><img src="./asset/img/skye-01_preview.png"/></a>
+			<a target="_blank" title="The heart of the Skye Drone: Raspberry Pi and custom servo controller board" href="./asset/img/skye-02.png"><img src="./asset/img/skye-02_preview.png"/></a>
+		</div>
+
+		<p class="links">
+			Repository: <a target="_blank" title="Skye Drone repository" href="https://github.com/martensms/skye-drone">https:/github.com/martensms/skye-drone</a>
+		</p>
+
+	</article>
+
+<!--
 	<div id="research-skyn3t" class="website-entity-Menu default">
 		<header>SkyN3T</header>
 	</div>
