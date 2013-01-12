@@ -1,8 +1,9 @@
 {
 
 	"states": {
-		"default": 0,
-		"active":  1
+		"default":   0,
+		"active":    1,
+		"inactive":  2
 	},
 
 	"map": {
@@ -13,6 +14,10 @@
 		"active": {
 			"width":  210,
 			"height": 210
+		},
+		"inactive": {
+			"width":  130,
+			"height": 130
 		}
 	}
 

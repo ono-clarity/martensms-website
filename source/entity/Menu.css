@@ -12,7 +12,7 @@
 	z-index: 5;
 }
 
-.website-entity-Menu.default {
+.website-entity-Menu.inactive {
 	cursor: pointer;
 }
 
@@ -35,17 +35,40 @@
 	font-weight: bold;
 	color: #fff;
 	line-height: 80px;
-	-moz-transition: line-height 500ms ease-out;
-	-webkit-transition: line-height 500ms ease-out;
-	transition: line-height 500ms ease-out;
+	opacity: 0;
 	overflow: hidden;
 }
 
+.website-entity-Menu.inactive header {
+	opacity: 1;
+	font-size: 12px;
+	-moz-transition-property: opacity, font-size, line-height;
+	-moz-transition-duration: 250ms;
+	-moz-transition-timing-function: ease-out;
+	-webkit-transition-property: opacity, font-size, line-height;
+	-webkit-transition-duration: 250ms;
+	-webkit-transition-timing-function: ease-out;
+	transition-property: opacity, font-size, line-height;
+	transition-duration: 250ms;
+	transition-timing-function: ease-out;
+}
+
 .website-entity-Menu.active header {
+	opacity: 1;
+	font-size: 16px;
 	line-height: 120px;
-	-moz-transition: line-height 500ms ease-out;
-	-webkit-transition: line-height 500ms ease-out;
-	transition: line-height 500ms ease-out;
+	-moz-transition-property: opacity, font-size, line-height;
+	-moz-transition-delay: 500ms;
+	-moz-transition-duration: 750ms;
+	-moz-transition-timing-function: ease-out;
+	-webkit-transition-property: opacity, font-size, line-height;
+	-webkit-transition-delay: 500ms;
+	-webkit-transition-duration: 750ms;
+	-webkit-transition-timing-function: ease-out;
+	transition-property: opacity, font-size, line-height;
+	transition-delay: 500ms;
+	transition-duration: 750ms;
+	transition-timing-function: ease-out;
 }
 
 

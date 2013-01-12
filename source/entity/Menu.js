@@ -175,7 +175,14 @@ lychee.define('website.entity.Menu').tags({
 				}
 
 				if (this.__content !== null) {
-					this.__content.setState(id);
+
+					var substate = id;
+					if (id === 'inactive') {
+						substate = 'default';
+					}
+
+					this.__content.setState(substate);
+
 				}
 
 			}

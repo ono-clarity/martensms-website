@@ -251,7 +251,7 @@ lychee.define('website.state.Scene').tags({
 				var current = this.__active;
 				if (current !== null) {
 
-					current.setState('default');
+					current.setState('inactive');
 					current.setPosition({
 						x: current.width,
 						y: current.height + current.height * this.__history.length
@@ -267,6 +267,8 @@ lychee.define('website.state.Scene').tags({
 				if (index !== null) {
 
 					for (var h = this.__history.length - 1; h > index; h--) {
+
+						this.__history[h].setState('default');
 
 						this.__history[h].setPosition({
 							x: width + 400,
@@ -396,7 +398,7 @@ lychee.define('website.state.Scene').tags({
 
 
 			var entity = this.__getEntityByPosition(position.x, position.y);
-			if (entity !== null && entity.getState() === 'default') {
+			if (entity !== null && entity.getState() === 'inactive') {
 				this.setActive(entity.getId());
 			}
 
