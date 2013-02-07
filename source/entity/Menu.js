@@ -147,8 +147,8 @@ lychee.define('website.entity.Menu').tags({
 
 
 			if (this.__element !== null) {
-				this.__element.style.setProperty('top',  (this.__position.y - this.height / 2) + 'px');
-				this.__element.style.setProperty('left', (this.__position.x - this.width / 2)  + 'px');
+				this.__element.style.setProperty('top',  (this.__position.y - this.height / 2) + 'px', null);
+				this.__element.style.setProperty('left', (this.__position.x - this.width / 2)  + 'px', null);
 			}
 
 
