@@ -98,8 +98,6 @@ lychee.define('website.ui.Notification').tags({
 
 		__destroy: function() {
 
-console.log('destruction!');
-
 			if (this.__element && this.__element.parentNode) {
 				_wrapper.removeChild(this.__element);
 			}

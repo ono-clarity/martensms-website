@@ -81,8 +81,8 @@ lychee.define('website.entity.Gallery').tags({
 			var notification = new website.ui.Notification('Loading ' + url + ' ...');
 
 			_preloader.load(url, {
-				url: url,
-				description: description,
+				url:          url,
+				description:  description,
 				notification: notification
 			});
 
@@ -116,8 +116,8 @@ lychee.define('website.entity.Gallery').tags({
 			var asset = assets[url];
 			var map   = maps[url];
 
-			if (asset instanceof Image) {
-				_show(asset, map);
+			if (asset instanceof Texture) {
+				_show(asset.buffer, map);
 				break;
 			}
 
