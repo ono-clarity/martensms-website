@@ -3,7 +3,9 @@ lychee.define('website.entity.Menu').tags({
 	platform: 'css'
 }).includes([
 	'lychee.game.Entity'
-]).exports(function(lychee, global) {
+]).exports(function(lychee, website, global, attachments) {
+
+	var _config = attachments['json'];
 
 	var Class = function(data, scene) {
 
@@ -14,14 +16,16 @@ lychee.define('website.entity.Menu').tags({
 		this.__parent   = null;
 		this.__content  = null;
 		this.__element  = settings.element || null;
-		this.__map      = settings.map || null;
 
 		this.__deserialize();
 
+
 		settings.width  = 130;
 		settings.height = 130;
+		settings.states = _config.states;
 
 		lychee.game.Entity.call(this, settings);
+
 
 		settings = null;
 
@@ -118,57 +122,42 @@ lychee.define('website.entity.Menu').tags({
 
 		},
 
-		getCurrentMap: function() {
-			return this.__map[this.getState()] || null;
-		},
-
-		getMap: function() {
-			return this.__map;
-		},
-
 		getId: function() {
 			return this.__element.id;
 		},
 
-		getPosition: function() {
-			return this.__position;
-		},
-
 		setPosition: function(position) {
 
-			if (Object.prototype.toString.call(position) !== '[object Object]') {
-				return false;
+			var result = lychee.game.Entity.prototype.setPosition.call(this, position);
+			if (result === true) {
+
+				if (this.__element !== null) {
+					this.__element.style.setProperty('top',  (this.position.y - this.height / 2) + 'px', null);
+					this.__element.style.setProperty('left', (this.position.x - this.width / 2)  + 'px', null);
+				}
+
 			}
 
 
-			this.__position.x = typeof position.x === 'number' ? position.x : this.__position.x;
-			this.__position.y = typeof position.y === 'number' ? position.y : this.__position.y;
-			this.__position.z = typeof position.z === 'number' ? position.z : this.__position.z;
-
-
-			if (this.__element !== null) {
-				this.__element.style.setProperty('top',  (this.__position.y - this.height / 2) + 'px', null);
-				this.__element.style.setProperty('left', (this.__position.x - this.width / 2)  + 'px', null);
-			}
-
-
-			return true;
+			return result;
 
 		},
 
 		setState: function(id) {
 
-			id = typeof id === 'string' ? id : null;
+			var result = lychee.game.Entity.prototype.setState.call(this, id);
+			if (result === true) {
 
-			if (id !== null && this.__states[id] !== undefined) {
+				var statemap = this.getStateMap();
 
-				this.__state = id;
-
-				var map = this.getCurrentMap();
-				if (map !== null) {
-					this.width  = map.width;
-					this.height = map.height;
+				if (statemap.width !== undefined) {
+					this.width  = statemap.width;
 				}
+
+				if (statemap.height !== undefined) {
+					this.height = statemap.height;
+				}
+
 
 				if (this.__element !== null) {
 					this.__element.className = 'website-entity-Menu ' + id;
@@ -186,6 +175,9 @@ lychee.define('website.entity.Menu').tags({
 				}
 
 			}
+
+
+			return result;
 
 		}
 

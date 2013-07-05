@@ -5,7 +5,9 @@ lychee.define('website.entity.Content').tags({
 	'website.entity.Menu'
 ]).includes([
 	'lychee.game.Entity'
-]).exports(function(lychee, global) {
+]).exports(function(lychee, website, global, attachments) {
+
+	var _config = attachments['json'];
 
 	var Class = function(data, scene) {
 
@@ -15,10 +17,13 @@ lychee.define('website.entity.Content').tags({
 		this.__element = settings.element || null;
 		this.__parent  = null;
 
-
 		this.__deserialize(scene);
 
+
+		settings.states = _config.states;
+
 		lychee.game.Entity.call(this, settings);
+
 
 		settings = null;
 
@@ -77,27 +82,23 @@ lychee.define('website.entity.Content').tags({
 			return null;
 		},
 
-		getPosition: function() {
-			return this.__position;
-		},
-
 		setPosition: function(position) {
 			return false;
 		},
 
 		setState: function(id) {
 
-			id = typeof id === 'string' ? id : null;
-
-			if (id !== null && this.__states[id] !== undefined) {
-
-				this.__state = id;
+			var result = lychee.game.Entity.prototype.setState.call(this, id);
+			if (result === true) {
 
 				if (this.__element !== null) {
 					this.__element.className = 'website-entity-Content ' + id;
 				}
 
 			}
+
+
+			return result;
 
 		}
 

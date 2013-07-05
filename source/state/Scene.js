@@ -10,7 +10,7 @@ lychee.define('website.state.Scene').tags({
 ]).supports(function(lychee, global) {
 
 	if (
-		typeof global.document !== 'undefined'
+		   typeof global.document !== 'undefined'
 		&& typeof global.document.addEventListener === 'function'
 		&& typeof global.document.querySelectorAll === 'function'
 		&& typeof global.location !== 'undefined'
@@ -22,7 +22,7 @@ lychee.define('website.state.Scene').tags({
 
 	return false;
 
-}).exports(function(lychee, global) {
+}).exports(function(lychee, website, global) {
 
 	var _instances = [];
 	var _listener = function(event) {
@@ -83,9 +83,9 @@ lychee.define('website.state.Scene').tags({
 
 		reset: function() {
 
-			var hwidth  = this.game.settings.width / 2;
-			var hheight = this.game.settings.height / 2;
-			var config  = this.game.config;
+			var env     = this.renderer.getEnvironment();
+			var hwidth  = env.width / 2;
+			var hheight = env.height / 2;
 
 
 			// 2. Parse Entities on Website
@@ -101,8 +101,6 @@ lychee.define('website.state.Scene').tags({
 					var entity = new website.entity[type]({
 						element:  element,
 						state:    state,
-						states:   config[type].states,
-						map:      config[type].map,
 						position: { x: 0, y: 0 }
 					}, this.__map);
 
@@ -142,8 +140,9 @@ lychee.define('website.state.Scene').tags({
 
 
 			// 1. Reset Menus
-			var width  = this.game.settings.width;
-			var height = this.game.settings.height;
+			var env    = this.renderer.getEnvironment();
+			var width  = env.width;
+			var height = env.height;
 			for (var e = 0, l = this.__entities.length; e < l; e++) {
 
 				this.__entities[e].setPosition({
@@ -240,8 +239,9 @@ lychee.define('website.state.Scene').tags({
 
 			if (target !== null) {
 
-				var width  = this.game.settings.width;
-				var height = this.game.settings.height;
+				var env    = this.renderer.getEnvironment();
+				var width  = env.width;
+				var height = env.height;
 
 
 				this.__locked = true;
@@ -354,15 +354,17 @@ lychee.define('website.state.Scene').tags({
 			for (var e = 0, l = this.__entities.length; e < l; e++) {
 
 				var entity   = this.__entities[e];
-				var position = entity.getPosition();
+				var position = entity.position;
 
 				var hwidth  = (entity.width / 2)  || entity.radius || 0;
 				var hheight = (entity.height / 2) || entity.radius || 0;
 
 
 				if (
-					x >= position.x - hwidth && x <= position.x + hwidth
-					&& y >= position.y - hheight && y <= position.y + hheight
+					   x >= position.x - hwidth
+					&& x <= position.x + hwidth
+					&& y >= position.y - hheight
+					&& y <= position.y + hheight
 				) {
 					found = entity;
 					break;
@@ -388,17 +390,8 @@ lychee.define('website.state.Scene').tags({
 
 		__processTouch: function(id, position, delta) {
 
-			if (this.__locked === true) return;
-
-
-			var offset = this.game.getOffset();
-
-			position.x -= offset.x;
-			position.y -= offset.y;
-
-
 			var entity = this.__getEntityByPosition(position.x, position.y);
-			if (entity !== null && entity.getState() === 'inactive') {
+			if (entity !== null && entity.state === 'inactive') {
 				this.setActive(entity.getId());
 			}
 

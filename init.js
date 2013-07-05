@@ -5,7 +5,7 @@
 
 // Rebase required namespaces for inclusion
 lychee.rebase({
-	lychee: "external/lycheeJS/lychee",
+	lychee: "/lychee",
 	website: "./source"
 });
 

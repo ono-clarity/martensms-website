@@ -1,11 +1,10 @@
 {
 
 	"states": {
+
 		"default": 0,
 		"active":  1
-	},
 
-	"map": {
 	}
 
 }

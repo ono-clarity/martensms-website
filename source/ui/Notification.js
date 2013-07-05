@@ -1,7 +1,7 @@
 
 lychee.define('website.ui.Notification').tags({
 	platform: 'css'
-}).exports(function(lychee, global) {
+}).exports(function(lychee, website, global) {
 
 	var _wrapper = document.createElement('ul');
 
