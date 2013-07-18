@@ -61,9 +61,6 @@ lychee.define('website.state.Scene').tags({
 
 		lychee.game.State.call(this, game, 'scene');
 
-		this.__input = this.game.input;
-		this.__loop  = this.game.loop;
-
 		this.__active       = null;
 		this.__entities     = [];
 		this.__history      = [];
@@ -182,20 +179,15 @@ lychee.define('website.state.Scene').tags({
 			var loading = global.document.getElementById('lychee-loading');
 			if (loading !== null && loading.parentNode !== null) {
 
-				this.__loop.timeout(1000, function() {
+				this.loop.timeout(1000, function() {
 					loading.parentNode.removeChild(loading);
 				}, this);
 
 			}
 
-
-			this.__input.bind('touch', this.__processTouch, this);
-
 		},
 
 		leave: function() {
-
-			this.__input.unbind('touch', this.__processTouch);
 
 			lychee.game.State.prototype.leave.call(this);
 
@@ -294,7 +286,7 @@ lychee.define('website.state.Scene').tags({
 					y: height / 2
 				});
 
-				this.__loop.timeout(1000, function() {
+				this.loop.timeout(1000, function() {
 					this.__active.setState('active');
 					this.__updateHash();
 					this.__locked = false;
@@ -388,7 +380,7 @@ lychee.define('website.state.Scene').tags({
 
 		},
 
-		__processTouch: function(id, position, delta) {
+		processTouch: function(id, position, delta) {
 
 			var entity = this.__getEntityByPosition(position.x, position.y);
 			if (entity !== null && entity.state === 'inactive') {
