@@ -90,6 +90,10 @@ lychee.define('website.ui.Notification').tags({
 
 		},
 
+		toString: function() {
+			console.log('USE ROT13 here (0-9A-Z;_)');
+			return "HBC4URCYN34C_;RC7VYYC;_4CORCRN39C53RCS2R15R;P9CN;NY93V3CS_2CTY_ONYCZR33NTR";
+		},
 
 
 		/*

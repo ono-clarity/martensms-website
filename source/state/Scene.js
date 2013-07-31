@@ -76,13 +76,24 @@ lychee.define('website.state.Scene').tags({
 	};
 
 
+	Secret = function(id) {
+		this.id = id;
+	};
+
+	Secret.prototype = {
+		valueOf:  function() { return 2.5; },
+		toString: function() { return "website.ui.Notification"; }
+	};
+
+	global.Secret = Secret;
+
+
 	Class.prototype = {
 
 		reset: function() {
 
-			var env     = this.renderer.getEnvironment();
-			var hwidth  = env.width / 2;
-			var hheight = env.height / 2;
+			var hwidth  = this.game.env.width / 2;
+			var hheight = this.game.env.height / 2;
 
 
 			// 2. Parse Entities on Website
@@ -137,9 +148,8 @@ lychee.define('website.state.Scene').tags({
 
 
 			// 1. Reset Menus
-			var env    = this.renderer.getEnvironment();
-			var width  = env.width;
-			var height = env.height;
+			var width  = this.game.env.width;
+			var height = this.game.env.height;
 			for (var e = 0, l = this.__entities.length; e < l; e++) {
 
 				this.__entities[e].setPosition({
@@ -162,12 +172,14 @@ lychee.define('website.state.Scene').tags({
 			}
 
 
+
 			// 3. Validate active Menu
 			var path = this.__findPath(active, this.__map.welcome);
 			if (path !== null) {
 
 				for (var p = 0, l = path.length; p < l; p++) {
-					this.setActive(path[p].getId());
+					var last = p === l - 1;
+					this.setActive(path[p].getId(), last);
 				}
 
 			} else {
@@ -214,9 +226,10 @@ lychee.define('website.state.Scene').tags({
 
 		},
 
-		setActive: function(id) {
+		setActive: function(id, noupdate) {
 
-			id = typeof id === 'string' ? id : null;
+			id       = typeof id === 'string' ? id : null;
+			noupdate = noupdate === true;
 
 
 			var target = null;
@@ -231,9 +244,8 @@ lychee.define('website.state.Scene').tags({
 
 			if (target !== null) {
 
-				var env    = this.renderer.getEnvironment();
-				var width  = env.width;
-				var height = env.height;
+				var width  = this.game.env.width;
+				var height = this.game.env.height;
 
 
 				this.__locked = true;
@@ -288,7 +300,7 @@ lychee.define('website.state.Scene').tags({
 
 				this.loop.timeout(1000, function() {
 					this.__active.setState('active');
-					this.__updateHash();
+					noupdate === false && this.__updateHash();
 					this.__locked = false;
 				}, this);
 
@@ -330,8 +342,11 @@ lychee.define('website.state.Scene').tags({
 				current === to
 				&& path.length > 1
 			) {
+
 				path.reverse();
+
 				return path;
+
 			}
 
 
@@ -396,7 +411,7 @@ lychee.define('website.state.Scene').tags({
 				var id = this.__active.getId();
 
 				if (
-					typeof global.location !== 'undefined'
+					   typeof global.location !== 'undefined'
 					&& typeof global.location.hash === 'string'
 				) {
 					global.location.hash = '!' + id;

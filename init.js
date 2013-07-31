@@ -23,10 +23,19 @@ lychee.build(function(lychee, global) {
 
 	var settings = {
 		base: './asset',
-		fullscreen: true
+		fullscreen: true,
+		width: global.innerWidth,
+		height: global.innerHeight
 	};
 
 	new website.Main(settings);
+
+	if (
+		   typeof console !== 'undefined'
+		&& typeof console.log === 'function'
+	) {
+		console.log('8; #lychee-poweredby');
+	}
 
 }, this);
 
